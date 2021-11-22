@@ -9,9 +9,20 @@ extern "C" {
 #include <errno.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#ifndef _WIN32
 #include <unistd.h>
+#endif
 #include <stdlib.h>
 }
+
+#ifdef _WIN32
+#define popen _popen
+#define pclose _pclose
+#define access _access
+#define R_OK 04
+#define W_OK 02
+#define S_ISDIR(m) (m & 0040000)
+#endif
 
 /*------------------------------------------------------------------------*/
 

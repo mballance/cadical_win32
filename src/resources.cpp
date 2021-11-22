@@ -115,9 +115,13 @@ uint64_t maximum_resident_set_size () {
 // This seems to work on Linux (man page says since Linux 2.6.32).
 
 uint64_t maximum_resident_set_size () {
+#ifndef _WIN32
   struct rusage u;
   if (getrusage (RUSAGE_SELF, &u)) return 0;
   return ((uint64_t) u.ru_maxrss) << 10;
+#else
+  return 0;
+#endif
 }
 
 // Unfortunately 'getrusage' on Linux does not support current resident set
@@ -128,6 +132,7 @@ uint64_t maximum_resident_set_size () {
 // '_SC_PAGESIZE' are available).
 
 uint64_t current_resident_set_size () {
+#ifndef _WIN32
   char path[40];
   sprintf (path, "/proc/%" PRId64 "/statm", (int64_t) getpid ());
   FILE * file = fopen (path, "r");
@@ -136,6 +141,9 @@ uint64_t current_resident_set_size () {
   int scanned = fscanf (file, "%" PRIu64 " %" PRIu64 "", &dummy, &rss);
   fclose (file);
   return scanned == 2 ? rss * sysconf (_SC_PAGESIZE) : 0;
+#else
+  return 0;
+#endif
 }
 
 #endif

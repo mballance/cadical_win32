@@ -5,6 +5,11 @@
 #include "internal.hpp"
 #include "signal.hpp"           // Separate, only need for apps.
 
+#ifdef _WIN32
+#define popen _popen
+#define pclose _pclose
+#endif
+
 /*------------------------------------------------------------------------*/
 
 namespace CaDiCaL {

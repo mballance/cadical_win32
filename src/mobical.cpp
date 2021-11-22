@@ -121,7 +121,9 @@ static const char * USAGE =
 /*------------------------------------------------------------------------*/
 
 extern "C" {
+#ifndef _WIN32
 #include <unistd.h>
+#endif
 }
 
 /*------------------------------------------------------------------------*/
@@ -1460,9 +1462,11 @@ extern "C" {
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#ifndef _WIN32
 #include <sys/wait.h>
 #include <sys/resource.h>
 #include <sys/time.h>
+#endif
 }
 
 int64_t Trace::generated;

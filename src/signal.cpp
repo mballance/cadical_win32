@@ -10,7 +10,9 @@
 /*------------------------------------------------------------------------*/
 
 extern "C" {
+#ifndef _WIN32
 #include <unistd.h>
+#endif
 }
 
 /*------------------------------------------------------------------------*/
@@ -48,7 +50,9 @@ static void (*SIGALRM_handler)(int);
 
 void Signal::reset_alarm () {
   if (!alarm_set) return;
+#ifndef _WIN32
   (void) signal (SIGALRM, SIGALRM_handler);
+#endif
   SIGALRM_handler = 0;
   caught_alarm = false;
   alarm_set = false;
