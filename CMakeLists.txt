@@ -13,7 +13,8 @@ list (REMOVE_ITEM libcadical_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/mobical.cpp)
 list (REMOVE_ITEM libcadical_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/signal.cpp)
 #list (REMOVE_ITEM libcadical_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/resources.cpp)
 
-add_compile_options(-fPIC)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+#add_compile_options(-fPIC)
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g")
 
